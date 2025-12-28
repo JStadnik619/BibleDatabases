@@ -7,25 +7,26 @@ from parser.parser import parse_usfm
     "passage, verses",
     [
         (
+            # Gen 2:10-15
             (
-                "\v 10 Now a river flowed out of Eden to water the garden, and from there it branched into four headwaters: "
-                "\b"
-                "\li1 "
-                "\v 11 The name of the first river is the Pishon; it winds through the whole land of Havilah, where there is gold. "
-                "\v 12 And the gold of that land is pure, and bdellium and onyx are found there. "
-                "\b"
-                "\li1 "
-                "\v 13 The name of the second river is the Gihon; it winds through the whole land of Cush. "
-                "\b"
-                "\li1 "
-                "\v 14 The name of the third river is the Tigris; it runs along the east side of Assyria. "
-                "\b"
-                "\li1 And the fourth river is the Euphrates. "
-                "\b"
-                "\m "
-                "\v 15 Then the LORD God took the man and placed him in the Garden of Eden to cultivate and keep it." 
-                "\b"
-                "\m "
+                "\v 10 Now a river flowed out of Eden to water the garden, and from there it branched into four headwaters: \n"
+                "\b\n"
+                "\li1 \n"
+                "\v 11 The name of the first river is the Pishon; it winds through the whole land of Havilah, where there is gold. \n"
+                "\v 12 And the gold of that land is pure, and bdellium and onyx are found there. \n"
+                "\b\n"
+                "\li1 \n"
+                "\v 13 The name of the second river is the Gihon; it winds through the whole land of Cush. \n"
+                "\b\n"
+                "\li1 \n"
+                "\v 14 The name of the third river is the Tigris; it runs along the east side of Assyria. \n"
+                "\b\n"
+                "\li1 And the fourth river is the Euphrates. \n"
+                "\b\n"
+                "\m \n"
+                "\v 15 Then the LORD God took the man and placed him in the Garden of Eden to cultivate and keep it.\n" 
+                "\b\n"
+                "\m \n"
             ),
             [
                 {
