@@ -13,7 +13,7 @@ def create_sqlite_db(db_path):
     cursor = conn.cursor()
     return conn, cursor
 
-def generate_translation_tables(data, language, translation, source_directory, cursor):
+def generate_translation_tables(data, language, translation, cursor):
     """
     _summary_
 
@@ -48,8 +48,8 @@ def generate_translation_tables(data, language, translation, source_directory, c
     """, (translation, translation_name, license_info))
 
     # Create books table
-    cursor.execute(f"""
-    CREATE TABLE IF NOT EXISTS {translation}_books (
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS books (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT
     );
@@ -57,17 +57,17 @@ def generate_translation_tables(data, language, translation, source_directory, c
 
     # Insert books
     for book in data['books']:
-        cursor.execute(f"INSERT INTO {translation}_books (name) VALUES (?);", (book['name'],))
+        cursor.execute("INSERT INTO books (name) VALUES (?);", (book['name'],))
 
     # Create verses table
-    cursor.execute(f"""
-    CREATE TABLE IF NOT EXISTS {translation}_verses (
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS verses (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         book_id INTEGER,
         chapter INTEGER,
         verse INTEGER,
         text TEXT,
-        FOREIGN KEY (book_id) REFERENCES {translation}_books(id)
+        FOREIGN KEY (book_id) REFERENCES books(id)
     );
     """)
 
@@ -75,7 +75,13 @@ def generate_translation_tables(data, language, translation, source_directory, c
     for book_index, book in enumerate(data['books'], start=1):
         for chapter in book['chapters']:
             for verse in chapter['verses']:
-                cursor.execute(f"""
-                INSERT INTO {translation}_verses (book_id, chapter, verse, text)
+                cursor.execute("""
+                INSERT INTO verses (book_id, chapter, verse, text)
                 VALUES (?, ?, ?, ?);
                 """, (book_index, chapter['chapter'], verse['verse'], verse['text']))
+
+# TODO: Migrate these methods from berea
+# create_abbreviations_table
+# create_resource_tables
+# create_fts_verses_table
+# create_bible_db
