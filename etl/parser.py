@@ -12,21 +12,42 @@ def set_or_append_text(verse, text):
         verse['text'] = text
 
 
+def remove_markup(text):
+    raw_text = text
+    tags = [
+        '\b',
+        '\li1',
+    ]
+    for tag in tags:
+        raw_text = raw_text.replace(tag, '')
+    return raw_text
+
+
 # TODO: Might need to use a generator, since some books are 3k+ lines
-def parse_usfm(book):
+# TODO: Parse \li2
+def parse_usfm(usfm):
     """_summary_
 
     Args:
         book (str): the content of a book's USFM file.
     """
     verses = []
+    book = ''
+    chapter = 0
     verse = {}
     next_verse_prefix = ''
     
-    for line in book.split('\n'):
+    for line in usfm.split('\n'):
         # breakpoint()
-        if line.startswith('\v'):
+        if line.startswith('\h'):
+            book = int(line[2:])
+        elif line.startswith('\c'):
+            chapter = int(line[2:])
+        elif line.startswith('\v'):
             if verse:
+                verse['book'] = book
+                verse['chapter'] = chapter
+                # verse['raw_text'] = remove_markup(verse['text'])
                 verses.append(verse)
                 verse = {}
 
@@ -51,6 +72,9 @@ def parse_usfm(book):
             continue
 
     # Add last verse
+    verse['book'] = book
+    verse['chapter'] = chapter
+    # verse['raw_text'] = remove_markup(verse['text'])
     verses.append(verse)
     
     return verses
