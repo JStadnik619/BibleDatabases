@@ -1,3 +1,6 @@
+import re
+
+
 def read_usfm(filepath):
     with open(filepath, 'r') as file:
         usfm = file.read()
@@ -20,7 +23,8 @@ def remove_markup(text):
     ]
     for tag in tags:
         raw_text = raw_text.replace(tag, '')
-    return raw_text
+    # Remove extra spaces left from removing tags
+    return re.sub(r'\s+', ' ', raw_text.strip())
 
 
 # TODO: Might need to use a generator, since some books are 3k+ lines
@@ -47,7 +51,7 @@ def parse_usfm(usfm):
             if verse:
                 verse['book'] = book
                 verse['chapter'] = chapter
-                # verse['raw_text'] = remove_markup(verse['text'])
+                verse['raw_text'] = remove_markup(verse['text'])
                 verses.append(verse)
                 verse = {}
 
@@ -74,7 +78,7 @@ def parse_usfm(usfm):
     # Add last verse
     verse['book'] = book
     verse['chapter'] = chapter
-    # verse['raw_text'] = remove_markup(verse['text'])
+    verse['raw_text'] = remove_markup(verse['text'])
     verses.append(verse)
     
     return verses
