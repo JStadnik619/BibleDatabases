@@ -1,11 +1,12 @@
 import re
 
 
-def read_usfm(filepath):
+# TODO: Return a generator?
+def read_sfm(filepath):
+    print(f'Reading file {filepath}')
     with open(filepath, 'r') as file:
-        usfm = file.read()
-        # breakpoint()
-        print(usfm)
+        sfm = file.read()
+        return sfm
 
 
 def set_or_append_text(verse, text):
@@ -29,11 +30,11 @@ def remove_markup(text):
 
 # TODO: Might need to use a generator, since some books are 3k+ lines
 # TODO: Parse \li2
-def parse_usfm(usfm):
+def parse_verses(sfm_content):
     """_summary_
 
     Args:
-        book (str): the content of a book's USFM file.
+        sfm_content (str): the content of a book's USFM file.
     """
     verses = []
     book = ''
@@ -41,7 +42,7 @@ def parse_usfm(usfm):
     verse = {}
     next_verse_prefix = ''
     
-    for line in usfm.split('\n'):
+    for line in sfm_content.split('\n'):
         # breakpoint()
         if line.startswith('\h'):
             book = int(line[2:])
@@ -81,4 +82,16 @@ def parse_usfm(usfm):
     verse['raw_text'] = remove_markup(verse['text'])
     verses.append(verse)
     
+    return verses
+
+
+# TODO: Verses will exceed 31k, use generator?
+def parse_usfm(path):
+    # TODO: Read translation/license metadata from Setting.xml
+    # TODO: Return a list of books and their abbreviations from BookNames.xml
+    sfm_books = [f for f in os.listdir(path) if f.lower().endswith('.sfm')]
+    verses = []
+    for sfm_book in sfm_books:
+        sfm_content = read_sfm(sfm_book)
+        verses += parse_verses(sfm_content)
     return verses

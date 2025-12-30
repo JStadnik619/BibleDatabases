@@ -1,6 +1,6 @@
 import pytest
 
-from etl.parser import parse_usfm
+from etl.parser import parse_verses
 
 
 @pytest.mark.parametrize(
@@ -77,5 +77,5 @@ from etl.parser import parse_usfm
         ),
     ]
 )
-def test_parse_usfm(passage, verses):
-    assert parse_usfm(passage) == verses
+def test_parse_verses(passage, verses):
+    assert parse_verses(passage) == verses

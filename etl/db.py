@@ -1,9 +1,11 @@
-"""Schema and functions based schema on
+"""Schema and functions based on
 https://github.com/JStadnik619/bible_databases/blob/master/scripts/export_sqlite_database.py
 """
 
 import os
 import sqlite3
+
+from etl.parser import parse_usfm
 
 
 def create_sqlite_db(db_path):
@@ -12,6 +14,7 @@ def create_sqlite_db(db_path):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     return conn, cursor
+
 
 def generate_translation_tables(data, language, translation, cursor):
     """
@@ -33,6 +36,8 @@ def generate_translation_tables(data, language, translation, cursor):
     #         if line.startswith("**License:**"):
     #             license_info = line.split("**License:** ")[1].strip()
     license_info = "None"
+    # TODO: Read name from Settings.xml FullName
+    translation_name = "Berean Standard Bible"
 
     # Create translations table if it doesn't exist
     cursor.execute("""
@@ -85,3 +90,25 @@ def generate_translation_tables(data, language, translation, cursor):
 # create_resource_tables
 # create_fts_verses_table
 # create_bible_db
+
+def main():
+    # Set base directories relative to the script location
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    source_directory = os.path.join(base_dir, 'sources')
+
+    # TODO: Do one translation at a time or all available?
+    usfm_data = parse_usfm(os.path.join(source_directory, 'bsb_usfm'))
+
+    target_db_path = os.path.join(base_dir, 'databases')
+
+    conn, cursor = create_sqlite_db(target_db_path)
+    generate_translation_tables(data, language, translation, source_directory, cursor)
+
+    conn.commit()
+    conn.close()
+
+    print(f"{translation} translation database built successfully!")
+
+
+if __name__ == "__main__":
+    main()
