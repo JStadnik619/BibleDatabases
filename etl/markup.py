@@ -20,8 +20,11 @@ my_parser = USFMParser(input_usfm_str)
 # errors = my_parser.errors
 # print(errors)
 
+# TODO: Remove the trailing newline from every verse
+# This outputs markup records
 list_output = my_parser.to_list() 
-#list_output = my_parser.to_list([Filter.SCRIPTURE_TEXT])
+# This outputs just the verse records
+# list_output = my_parser.to_list(None, Filter.TEXT)
 
 # table_output = "\n".join([",".join(row) for row in list_output])
 
