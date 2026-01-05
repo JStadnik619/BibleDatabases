@@ -6,7 +6,6 @@ Based on https://github.com/Bridgeconn/usfm-grammar/tree/master/py-usfm-parser
 import os
 import csv
 
-# TODO: Use a subset of this code instead of importing the whole package
 from usfm_grammar import USFMParser, Filter
 
 
@@ -50,9 +49,6 @@ def extract_data(usfm):
         # errors = parser.errors
         # print(errors)
 
-        # TODO: Extract books and their abbreviations
-        # Abbreviation: \id content preceding ' - '
-        # Book: \h tag content
         # TODO: Each call it parser is slow, get translation name once per translation
         # TODO: Not all translations contain the translation name in \id
         # or come with Settings.xml
@@ -75,7 +71,6 @@ def extract_data(usfm):
 
 
 # TODO: Commit verses and markup to db for each book?
-# TODO: Verses will exceed 31k, use generator?
 def parse_usfm(path):
     # TODO: Read translation/license metadata from Setting.xml
     # TODO: Return a list of books and their abbreviations from BookNames.xml
