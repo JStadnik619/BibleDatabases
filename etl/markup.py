@@ -32,41 +32,72 @@ def format_records(records):
             records[idx][3] = record[3].rstrip()
 
 
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-source_directory = os.path.join(base_dir, 'sources')
-gen_usfm = os.path.join(source_directory, 'bsb_usfm/01GENBSB.SFM')
-input_usfm_str = open(gen_usfm,"r", encoding='utf8').read()
+def extract_data(usfm):
+    """Extract translation, book, markup, and verses from USFM file.
 
-my_parser = USFMParser(input_usfm_str)
+    Args:
+        usfm (str): path to the USFM file.
 
-# errors = my_parser.errors
-# print(errors)
+    Returns:
+        dict: the file's translation, book, markup, and verses.
+    """
+    data = {}
 
-# TODO: Extract books and their abbreviations
-# Abbreviation: \id content preceding ' - '
-# Book: \h tag content
-# TODO: Each call it my_parser is slow, get translation name once per translation
-# TODO: Not all translations contain the translation name in \id
-# or come with Settings.xml
-translation = my_parser.to_list(include_markers=['id'])[1][3][2:]
-book = my_parser.to_list(include_markers=['h'])[1][3].rstrip()
-print(f"Parsing {translation=} {book=}")
+    with open(usfm, "r", encoding='utf8') as file:
+        usfm_content = file.read()
+        parser = USFMParser(usfm_content)
 
-# This outputs a list of lists (column labels followed by markup records)
-# 'Book', 'Chapter', 'Verse', 'Text', 'Type', 'Marker'
-markup_records = my_parser.to_list() 
-abbreviation = markup_records[1][0]
-format_records(markup_records)
+        # errors = parser.errors
+        # print(errors)
 
-verses = my_parser.to_list(None, Filter.TEXT)
-format_records(verses)
+        # TODO: Extract books and their abbreviations
+        # Abbreviation: \id content preceding ' - '
+        # Book: \h tag content
+        # TODO: Each call it parser is slow, get translation name once per translation
+        # TODO: Not all translations contain the translation name in \id
+        # or come with Settings.xml
+        data['translation'] = parser.to_list(include_markers=['id'])[1][3][2:]
+        data['book'] = parser.to_list(include_markers=['h'])[1][3].rstrip()
+        print(f"Parsing {data['translation']}: {data['book']}")
 
-# TODO: Save list output to SQLite markup table
+        # This outputs a list of lists (column labels followed by markup records)
+        # 'Book', 'Chapter', 'Verse', 'Text', 'Type', 'Marker'
+        markup = parser.to_list() 
+        format_records(markup)
+        data['markup'] = markup
+        data['abbreviation'] = markup[1][0]
 
-with open(os.path.join(base_dir, 'databases/gen_markup.csv'), 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerows(markup_records)
+        verses = parser.to_list(None, Filter.TEXT)
+        format_records(verses)
+        data['verses'] = verses
+    
+    return data
 
-with open(os.path.join(base_dir, 'databases/gen_verses.csv'), 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerows(verses)
+
+# TODO: Commit verses and markup to db for each book?
+# TODO: Verses will exceed 31k, use generator?
+def parse_usfm(path):
+    # TODO: Read translation/license metadata from Setting.xml
+    # TODO: Return a list of books and their abbreviations from BookNames.xml
+    sfm_books = [f for f in os.listdir(path) if f.lower().endswith('.sfm')]
+    verses = []
+    for sfm_book in sfm_books:
+        sfm_content = read_sfm(sfm_book)
+        verses += parse_verses(sfm_content)
+    return verses
+
+
+if __name__ == '__main__':
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    source_directory = os.path.join(base_dir, 'sources')
+    gen_usfm = os.path.join(source_directory, 'bsb_usfm/01GENBSB.SFM')
+
+    data = extract_data(gen_usfm)
+
+    with open(os.path.join(base_dir, 'databases/gen_markup.csv'), 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(data['markup'])
+
+    with open(os.path.join(base_dir, 'databases/gen_verses.csv'), 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(data['verses'])
