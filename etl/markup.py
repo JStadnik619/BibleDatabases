@@ -3,6 +3,8 @@ POC for using usfm-grammar instead of implementing my own USFM parser.
 Based on https://github.com/Bridgeconn/usfm-grammar/tree/master/py-usfm-parser
 """
 
+# TODO: Rename this module
+
 import os
 import csv
 
@@ -16,7 +18,7 @@ def format_records(records):
 
     Args:
         records (list): a list of lists containing column labels
-            ('Book', 'Chapter', 'Verse', 'Text', 'Type', 'Marker')
+            ('book', 'chapter', 'verse', 'text', 'type', 'marker')
             followed by records.
     """
     for idx, record in enumerate(records):
@@ -31,7 +33,12 @@ def format_records(records):
             records[idx][3] = record[3].rstrip()
 
 
-def extract_data(usfm):
+# BUG: 38ZECBSB.SFM
+# Exception: Errors present:
+#         At Point(row=541, column=0):\d
+# \v 1 This is the burden of the word of the LORD concerning Israel.
+#         At Point(row=542, column=65):.
+def extract_book_data(usfm):
     """Extract translation, book, markup, and verses from USFM file.
 
     Args:
@@ -46,24 +53,25 @@ def extract_data(usfm):
         usfm_content = file.read()
         parser = USFMParser(usfm_content)
 
-        # errors = parser.errors
-        # print(errors)
+        errors = parser.errors
+        if errors:
+            print(errors)
 
-        # TODO: Each call it parser is slow, get translation name once per translation
+        # TODO: Each call to parser is slow, get translation name once per translation
         # TODO: Not all translations contain the translation name in \id
-        # or come with Settings.xml
-        data['translation'] = parser.to_list(include_markers=['id'])[1][3][2:]
-        data['book'] = parser.to_list(include_markers=['h'])[1][3].rstrip()
-        print(f"Parsing {data['translation']}: {data['book']}")
+        # or pull from Settings.xml
+        data['translation'] = parser.to_list(include_markers=['id'], ignore_errors=True)[1][3][2:]
+        data['name'] = parser.to_list(include_markers=['h'], ignore_errors=True)[1][3].rstrip()
+        print(f"Parsing {data['translation']}: {data['name']}")
 
         # This outputs a list of lists (column labels followed by markup records)
         # 'Book', 'Chapter', 'Verse', 'Text', 'Type', 'Marker'
-        markup = parser.to_list() 
+        markup = parser.to_list(ignore_errors=True) 
         format_records(markup)
         data['markup'] = markup
         data['abbreviation'] = markup[1][0]
 
-        verses = parser.to_list(None, Filter.TEXT)
+        verses = parser.to_list(None, Filter.TEXT, ignore_errors=True)
         format_records(verses)
         data['verses'] = verses
     
@@ -72,14 +80,19 @@ def extract_data(usfm):
 
 # TODO: Commit verses and markup to db for each book?
 def parse_usfm(path):
-    # TODO: Read translation/license metadata from Setting.xml
-    # TODO: Return a list of books and their abbreviations from BookNames.xml
-    sfm_books = [f for f in os.listdir(path) if f.lower().endswith('.sfm')]
-    verses = []
+    sfm_books = sorted([f for f in os.listdir(path) if f.lower().endswith('.sfm')])
+    translation_data = {
+        'abbreviations': [],
+        'books': [],
+    }
     for sfm_book in sfm_books:
-        sfm_content = read_sfm(sfm_book)
-        verses += parse_verses(sfm_content)
-    return verses
+        book_data = extract_book_data(f"{path}/{sfm_book}")
+        translation_data['books'].append(book_data)
+
+        if 'translation' not in translation_data.keys():
+            translation_data['translation'] = book_data['translation']
+
+    return translation_data
 
 
 if __name__ == '__main__':

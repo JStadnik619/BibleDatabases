@@ -5,7 +5,7 @@ https://github.com/JStadnik619/bible_databases/blob/master/scripts/export_sqlite
 import os
 import sqlite3
 
-from etl.parser import parse_usfm
+from etl.markup import parse_usfm
 
 
 def create_sqlite_db(db_path):
@@ -78,12 +78,14 @@ def generate_translation_tables(data, language, translation, cursor):
 
     # Insert verses
     for book_index, book in enumerate(data['books'], start=1):
-        for chapter in book['chapters']:
-            for verse in chapter['verses']:
-                cursor.execute("""
-                INSERT INTO verses (book_id, chapter, verse, text)
-                VALUES (?, ?, ?, ?);
-                """, (book_index, chapter['chapter'], verse['verse'], verse['text']))
+        # Skip column labels ('book', 'chapter', 'verse', 'text', 'type', 'marker')
+        for verse in book['verses'][1:]:
+            cursor.execute("""
+            INSERT INTO verses (book_id, chapter, verse, text)
+            VALUES (?, ?, ?, ?);
+            """, (book_index, verse[1], verse[2], verse[3]))
+    
+    # TODO: Insert markup
 
 # TODO: Migrate these methods from berea
 # create_abbreviations_table
@@ -99,10 +101,17 @@ def main():
     # TODO: Do one translation at a time or all available?
     usfm_data = parse_usfm(os.path.join(source_directory, 'bsb_usfm'))
 
-    target_db_path = os.path.join(base_dir, 'databases')
+    translation = usfm_data['translation']
+    target_db_path = os.path.join(base_dir, f"databases/{translation}.db")
 
     conn, cursor = create_sqlite_db(target_db_path)
-    generate_translation_tables(data, language, translation, source_directory, cursor)
+    language = 'ENG'
+    generate_translation_tables(
+        usfm_data,
+        language,
+        translation,
+        cursor
+    )
 
     conn.commit()
     conn.close()
