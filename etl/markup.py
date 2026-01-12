@@ -100,7 +100,7 @@ if __name__ == '__main__':
     source_directory = os.path.join(base_dir, 'sources')
     gen_usfm = os.path.join(source_directory, 'bsb_usfm/01GENBSB.SFM')
 
-    data = extract_data(gen_usfm)
+    data = extract_book_data(gen_usfm)
 
     with open(os.path.join(base_dir, 'databases/gen_markup.csv'), 'w', newline='') as file:
         writer = csv.writer(file)

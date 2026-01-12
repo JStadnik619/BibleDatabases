@@ -2,121 +2,256 @@
 https://github.com/JStadnik619/bible_databases/blob/master/scripts/export_sqlite_database.py
 """
 
+import csv
 import os
 import sqlite3
+import json
 
 from etl.markup import parse_usfm
+from etl.utils import SOURCES_DIR, DBS_DIR
 
 
-def create_sqlite_db(db_path):
-    # Create the database file if it doesn't exist
-    os.makedirs(os.path.dirname(db_path), exist_ok=True)
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    return conn, cursor
+# TODO: Copy csv from berea
+def import_resource_books(resource='step_bible'):
+    books = []
+    
+    with open(f'{SOURCES_DIR}/data/{resource}_books.csv') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            books.append(row['abbreviation'])
+    
+    return books
 
 
-def generate_translation_tables(data, language, translation, cursor):
-    """
-    _summary_
+class BibleGenerator:
+    def __init__(self, translation):
+        self.translation = translation
+        self.database = f"{DBS_DIR}/{self.translation}.db"
+    
+    def create_sqlite_db(self):
+        # Create the database file if it doesn't exist
+        os.makedirs(os.path.dirname(self.database), exist_ok=True)
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+        return conn, cursor
+    
+    # TODO: Close out the conn when it's released
+    def get_bible_cursor(self):
+        conn = sqlite3.connect(self.database)
+        conn.row_factory = sqlite3.Row
+        # TODO: Use context manager?
+        return conn.cursor()
 
-    Args:
-        data (dict): books and verses parsed from the USFM file.
-    """
-    # json_path = os.path.join(source_directory, language, translation, f"{translation}.json")
-    # with open(json_path, 'r', encoding='utf-8') as file:
-    #     data = json.load(file)
+    # TODO: Separate methods for books, verses, markup tables
+    def create_translation_tables(self, data, language, cursor):
+        """
+        _summary_
 
-    # TODO: Get license info from the source page
-    # readme_path = os.path.join(source_directory, language, translation, "README.md")
-    # with open(readme_path, 'r', encoding='utf-8') as file:
-    #     translation_name = file.readline().strip()
-    #     license_info = "Unknown"
-    #     for line in file:
-    #         if line.startswith("**License:**"):
-    #             license_info = line.split("**License:** ")[1].strip()
-    license_info = "None"
-    # TODO: Read name from Settings.xml FullName
-    translation_name = "Berean Standard Bible"
+        Args:
+            data (dict): books and verses parsed from the USFM file.
+        """
+        # json_path = os.path.join(source_directory, language, translation, f"{translation}.json")
+        # with open(json_path, 'r', encoding='utf-8') as file:
+        #     data = json.load(file)
 
-    # Create translations table if it doesn't exist
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS translations (
-        translation TEXT PRIMARY KEY,
-        title TEXT,
-        license TEXT
-    );
-    """)
-    cursor.execute("""
-    INSERT OR IGNORE INTO translations (translation, title, license)
-    VALUES (?, ?, ?);
-    """, (translation, translation_name, license_info))
+        # TODO: Get license info from the source page
+        # readme_path = os.path.join(source_directory, language, translation, "README.md")
+        # with open(readme_path, 'r', encoding='utf-8') as file:
+        #     translation_name = file.readline().strip()
+        #     license_info = "Unknown"
+        #     for line in file:
+        #         if line.startswith("**License:**"):
+        #             license_info = line.split("**License:** ")[1].strip()
+        license_info = "None"
+        # TODO: Read name from Settings.xml FullName
+        translation_name = "Berean Standard Bible"
 
-    # Create books table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS books (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT
-    );
-    """)
+        # Create translations table if it doesn't exist
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS translations (
+            translation TEXT PRIMARY KEY,
+            title TEXT,
+            license TEXT
+        );
+        """)
+        cursor.execute("""
+        INSERT OR IGNORE INTO translations (translation, title, license)
+        VALUES (?, ?, ?);
+        """, (self.translation, translation_name, license_info))
 
-    # Insert books
-    for book in data['books']:
-        cursor.execute("INSERT INTO books (name) VALUES (?);", (book['name'],))
+        # Create books table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS books (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT
+        );
+        """)
 
-    # Create verses table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS verses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        book_id INTEGER,
-        chapter INTEGER,
-        verse INTEGER,
-        text TEXT,
-        FOREIGN KEY (book_id) REFERENCES books(id)
-    );
-    """)
+        # Insert books
+        for book in data['books']:
+            cursor.execute("INSERT INTO books (name) VALUES (?);", (book['name'],))
 
-    # Insert verses
-    for book_index, book in enumerate(data['books'], start=1):
-        # Skip column labels ('book', 'chapter', 'verse', 'text', 'type', 'marker')
-        for verse in book['verses'][1:]:
-            cursor.execute("""
-            INSERT INTO verses (book_id, chapter, verse, text)
-            VALUES (?, ?, ?, ?);
-            """, (book_index, verse[1], verse[2], verse[3]))
+        # Create verses table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS verses (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            book_id INTEGER,
+            chapter INTEGER,
+            verse INTEGER,
+            text TEXT,
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        );
+        """)
+
+        # Insert verses
+        for book_index, book in enumerate(data['books'], start=1):
+            # Skip column labels ('book', 'chapter', 'verse', 'text', 'type', 'marker')
+            for verse in book['verses'][1:]:
+                cursor.execute("""
+                INSERT INTO verses (book_id, chapter, verse, text)
+                VALUES (?, ?, ?, ?);
+                """, (book_index, verse[1], verse[2], verse[3]))
     
     # TODO: Insert markup
+    
+    # TODO: Copy json file from berea
+    def create_abbreviations_table(self):
+        cursor = self.get_bible_cursor()
 
-# TODO: Migrate these methods from berea
-# create_abbreviations_table
-# create_resource_tables
-# create_fts_verses_table
-# create_bible_db
+        cursor.execute(f"""
+        CREATE TABLE IF NOT EXISTS abbreviations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            book_id INTEGER,
+            abbreviation TEXT,
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        );
+        """)
+        
+        books_to_abbreviations = {}
+        
+        with open(f'{SOURCES_DIR}/data/book_abbreviations.json') as file:
+            books_to_abbreviations = dict(json.load(file))
+    
+        # Create a conn to commit inserts and close 
+        conn = sqlite3.connect(self.database)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        for book, abbreviations in books_to_abbreviations.items():
+            for abbreviation in abbreviations:
+                params = {
+                    'abbreviation': abbreviation,
+                    'book': book,
+                }
+                
+                cursor.execute(f"""
+                INSERT INTO abbreviations (abbreviation, book_id)
+                SELECT :abbreviation, books.id
+                FROM books
+                WHERE books.name = :book;
+                """, params)
+        
+        conn.commit()
+        conn.close()
+    
+    # TODO: Add berea-web once it renders markup
+    def create_resource_tables(self):
+        cursor = self.get_bible_cursor()
+
+        cursor.execute(f"""
+        CREATE TABLE IF NOT EXISTS resources (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT
+        );
+        """)
+        
+        cursor.execute(f"""
+        CREATE TABLE IF NOT EXISTS resources_abbreviations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            resource_id INTEGER,
+            abbreviation_id INTEGER
+        );
+        """)
+        
+        # Create a conn to commit inserts and close 
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+        
+        # TODO: Insert STEP Bible dynamically
+        resource='STEP Bible'
+        cursor.execute(f"""
+        INSERT INTO resources (name) VALUES (
+            'STEP Bible'
+        );
+        """)
+        
+        conn.commit()
+        conn.close()
+        
+        abbreviations = import_resource_books()
+        
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+        
+        for abbreviation in abbreviations:
+            params = {
+                'abbreviation': abbreviation.lower(),
+            }
+            
+            # TODO: Select STEP Bible id dynamically
+            cursor.execute(f"""
+            INSERT INTO resources_abbreviations (resource_id, abbreviation_id)
+            SELECT 1, abbreviations.id
+            FROM abbreviations
+            WHERE abbreviations.abbreviation = :abbreviation;
+            """, params)
+        
+        conn.commit()
+        conn.close()
+    
+    def create_fts_verses_table(self):
+        cursor = self.get_bible_cursor()
+        cursor.execute("""
+        CREATE VIRTUAL TABLE fts_verses
+            USING fts5(book_id, chapter, verse, text);
+        """)
+
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO fts_verses (book_id, chapter, verse, text)
+        SELECT book_id, chapter, verse, text FROM verses;
+        """)
+        conn.commit()
+        conn.close()
+    
+    def generate(self, usfm_data, language):
+        # TODO: Interact with connection consistently
+        conn, cursor = self.create_sqlite_db()
+        self.create_translation_tables(
+            usfm_data,
+            language,
+            cursor
+        )
+        conn.commit()
+        conn.close()
+        
+        self.create_abbreviations_table()
+        self.create_resource_tables()
+        self.create_fts_verses_table()
+        print(f"{self.translation} translation database built successfully!")
+
 
 def main():
-    # Set base directories relative to the script location
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    source_directory = os.path.join(base_dir, 'sources')
-
     # TODO: Do one translation at a time or all available?
-    usfm_data = parse_usfm(os.path.join(source_directory, 'bsb_usfm'))
+    usfm_data = parse_usfm(os.path.join(SOURCES_DIR, 'bsb_usfm'))
 
+    # TODO: Get abbreviation instead of full name
     translation = usfm_data['translation']
-    target_db_path = os.path.join(base_dir, f"databases/{translation}.db")
-
-    conn, cursor = create_sqlite_db(target_db_path)
-    language = 'ENG'
-    generate_translation_tables(
-        usfm_data,
-        language,
-        translation,
-        cursor
-    )
-
-    conn.commit()
-    conn.close()
-
-    print(f"{translation} translation database built successfully!")
+    
+    bible = BibleGenerator(translation)
+    # TODO: Get language from translation README
+    bible.generate(usfm_data, 'ENG')
 
 
 if __name__ == "__main__":
