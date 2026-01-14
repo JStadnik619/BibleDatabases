@@ -57,12 +57,8 @@ def extract_book_data(usfm):
         if errors:
             print(errors)
 
-        # TODO: Each call to parser is slow, get translation name once per translation
-        # TODO: Not all translations contain the translation name in \id
-        # or pull from Settings.xml
-        data['translation'] = parser.to_list(include_markers=['id'], ignore_errors=True)[1][3][2:]
         data['name'] = parser.to_list(include_markers=['h'], ignore_errors=True)[1][3].rstrip()
-        print(f"Parsing {data['translation']}: {data['name']}")
+        print(f"Parsing: {data['name']}")
 
         # This outputs a list of lists (column labels followed by markup records)
         # 'Book', 'Chapter', 'Verse', 'Text', 'Type', 'Marker'
@@ -88,9 +84,6 @@ def parse_usfm(path):
     for sfm_book in sfm_books:
         book_data = extract_book_data(f"{path}/{sfm_book}")
         translation_data['books'].append(book_data)
-
-        if 'translation' not in translation_data.keys():
-            translation_data['translation'] = book_data['translation']
 
     return translation_data
 

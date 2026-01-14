@@ -246,10 +246,9 @@ class BibleGenerator:
 # TODO: Once this works (including markup), compare db size to berea
 def main():
     # TODO: Do one translation at a time or all available?
-    usfm_data = parse_usfm(os.path.join(SOURCES_DIR, 'bsb_usfm'))
-
-    # TODO: Get abbreviation instead of full name
-    translation = usfm_data['translation']
+    # TODO: Get translaction info from translations.csv
+    translation = 'BSB'
+    usfm_data = parse_usfm(os.path.join(SOURCES_DIR, translation))
     
     bible = BibleGenerator(translation)
     # TODO: Get language from translation README
