@@ -15,7 +15,7 @@ from etl.utils import SOURCES_DIR, DBS_DIR
 def import_resource_books(resource='step_bible'):
     books = []
     
-    with open(f'{SOURCES_DIR}/data/{resource}_books.csv') as csv_file:
+    with open(f'{SOURCES_DIR}/{resource}_books.csv') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             books.append(row['abbreviation'])
@@ -115,6 +115,7 @@ class BibleGenerator:
     # TODO: Insert markup
     
     # TODO: Copy json file from berea
+    # TODO: Book names will need to correspond to a translation's USFM unless standardized
     def create_abbreviations_table(self):
         cursor = self.get_bible_cursor()
 
@@ -129,7 +130,7 @@ class BibleGenerator:
         
         books_to_abbreviations = {}
         
-        with open(f'{SOURCES_DIR}/data/book_abbreviations.json') as file:
+        with open(f'{SOURCES_DIR}/book_abbreviations.json') as file:
             books_to_abbreviations = dict(json.load(file))
     
         # Create a conn to commit inserts and close 
@@ -242,6 +243,7 @@ class BibleGenerator:
         print(f"{self.translation} translation database built successfully!")
 
 
+# TODO: Once this works (including markup), compare db size to berea
 def main():
     # TODO: Do one translation at a time or all available?
     usfm_data = parse_usfm(os.path.join(SOURCES_DIR, 'bsb_usfm'))
