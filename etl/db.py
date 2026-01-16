@@ -112,7 +112,39 @@ class BibleGenerator:
                 VALUES (?, ?, ?, ?);
                 """, (book_index, verse[1], verse[2], verse[3]))
     
-    # TODO: Insert markup
+    def create_markup_table(self, data):
+        cursor = self.get_bible_cursor()
+        
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS markup (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            book_id INTEGER,
+            chapter INTEGER,
+            verse INTEGER,
+            text TEXT,
+            type TEXT,
+            marker TEXT,
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        );
+        """)
+        
+        # TODO: Make this a method?
+        # Create a conn to commit inserts and close 
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+        
+        # TODO: Excecute many instead of inserting records one at a time?
+        # TODO: Bind values using placeholders?
+        for book_index, book in enumerate(data['books'], start=1):
+            # Skip column labels ('book', 'chapter', 'verse', 'text', 'type', 'marker')
+            for markup_record in book['markup'][1:]:
+                cursor.execute("""
+                INSERT INTO markup (book_id, chapter, verse, text, type, marker)
+                VALUES (?, ?, ?, ?, ?, ?);
+                """, (book_index, markup_record[1], markup_record[2], markup_record[3], markup_record[4], markup_record[5]))
+        
+        conn.commit()
+        conn.close()
     
     # TODO: Copy json file from berea
     # TODO: Book names will need to correspond to a translation's USFM unless standardized
@@ -237,6 +269,7 @@ class BibleGenerator:
         conn.commit()
         conn.close()
         
+        self.create_markup_table(usfm_data)
         self.create_abbreviations_table()
         self.create_resource_tables()
         self.create_fts_verses_table()
