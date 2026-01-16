@@ -91,6 +91,7 @@ class BibleGenerator:
         for book in data['books']:
             cursor.execute("INSERT INTO books (name) VALUES (?);", (book['name'],))
 
+        # TODO: Omit this table and make fts_verses table from query against markup?
         # Create verses table
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS verses (
