@@ -64,5 +64,5 @@
   "II John": ["2 john", "2john", "2 jhn", "2jhn", "2 jn", "2jn", "2j", "2nd john", "second john"],
   "III John": ["3 john", "3john", "3 jhn", "3jhn", "3 jn", "3jn", "3j", "3rd john", "third john"],
   "Jude": ["jude", "jud", "jd"],
-  "Revelation of John": ["revelation", "rev", "re", "the revelation"]
+  "Revelation": ["revelation", "rev", "re", "the revelation"]
 }
