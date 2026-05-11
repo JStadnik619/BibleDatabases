@@ -263,6 +263,7 @@ class BibleGenerator:
         conn.close()
     
     def generate(self, usfm_data, language):
+        # TODO: Delete preexisting database
         # TODO: Interact with connection consistently
         conn, cursor = self.create_sqlite_db()
         self.create_translation_tables(
