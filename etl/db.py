@@ -243,6 +243,9 @@ class BibleGenerator:
         conn.commit()
         conn.close()
     
+    # TODO: Create fts_verses from markup
+    # 1. Create the FTS5 table
+    # 2. Populate it from a SELECT verses query on markup
     def create_fts_verses_table(self):
         cursor = self.get_bible_cursor()
         cursor.execute("""
@@ -280,7 +283,7 @@ class BibleGenerator:
 # TODO: Once this works (including markup), compare db size to berea
 def main():
     # TODO: Do one translation at a time or all available?
-    # TODO: Get translaction info from translations.csv
+    # TODO: Get translation info from translations.csv
     translation = 'BSB'
     usfm_data = parse_usfm(os.path.join(SOURCES_DIR, translation))
     
