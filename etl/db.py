@@ -11,7 +11,6 @@ from etl.markup import parse_usfm
 from etl.utils import SOURCES_DIR, DBS_DIR
 
 
-# TODO: Copy csv from berea
 def import_resource_books(resource='step_bible'):
     books = []
     
@@ -24,9 +23,16 @@ def import_resource_books(resource='step_bible'):
 
 
 class BibleGenerator:
-    def __init__(self, translation):
+    def __init__(self, translation, title, license, source):
         self.translation = translation
+        self.title = title
+        self.license = license
+        self.source = source
         self.database = f"{DBS_DIR}/{self.translation}.db"
+    
+    def delete_sqlite_db(self):
+        if os.path.exists(self.database):
+            os.remove(self.database)
     
     def create_sqlite_db(self):
         # Create the database file if it doesn't exist
@@ -43,41 +49,27 @@ class BibleGenerator:
         return conn.cursor()
 
     # TODO: Separate methods for books, verses, markup tables
-    def create_translation_tables(self, data, language, cursor):
+    def create_translation_tables(self, data, cursor):
         """
         _summary_
 
         Args:
             data (dict): books and verses parsed from the USFM file.
         """
-        # json_path = os.path.join(source_directory, language, translation, f"{translation}.json")
-        # with open(json_path, 'r', encoding='utf-8') as file:
-        #     data = json.load(file)
-
-        # TODO: Get license info from the source page
-        # readme_path = os.path.join(source_directory, language, translation, "README.md")
-        # with open(readme_path, 'r', encoding='utf-8') as file:
-        #     translation_name = file.readline().strip()
-        #     license_info = "Unknown"
-        #     for line in file:
-        #         if line.startswith("**License:**"):
-        #             license_info = line.split("**License:** ")[1].strip()
-        license_info = "None"
-        # TODO: Read name from Settings.xml FullName
-        translation_name = "Berean Standard Bible"
 
         # Create translations table if it doesn't exist
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS translations (
             translation TEXT PRIMARY KEY,
             title TEXT,
-            license TEXT
+            license TEXT,
+            source TEXT
         );
         """)
         cursor.execute("""
-        INSERT OR IGNORE INTO translations (translation, title, license)
-        VALUES (?, ?, ?);
-        """, (self.translation, translation_name, license_info))
+        INSERT OR IGNORE INTO translations (translation, title, license, source)
+        VALUES (?, ?, ?, ?);
+        """, (self.translation, self.title, self.license, self.source))
 
         # Create books table
         cursor.execute("""
@@ -263,12 +255,11 @@ class BibleGenerator:
         conn.close()
     
     def generate(self, usfm_data, language):
-        # TODO: Delete preexisting database
+        self.delete_sqlite_db()
         # TODO: Interact with connection consistently
         conn, cursor = self.create_sqlite_db()
         self.create_translation_tables(
             usfm_data,
-            language,
             cursor
         )
         conn.commit()
@@ -283,14 +274,18 @@ class BibleGenerator:
 
 # TODO: Once this works (including markup), compare db size to berea
 def main():
-    # TODO: Do one translation at a time or all available?
-    # TODO: Get translation info from translations.csv
-    translation = 'BSB'
-    usfm_data = parse_usfm(os.path.join(SOURCES_DIR, translation))
+    translations = []
+    with open(f'{SOURCES_DIR}/translations.csv') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            translations.append(row)
     
-    bible = BibleGenerator(translation)
-    # TODO: Get language from translation README
-    bible.generate(usfm_data, 'ENG')
+    # TODO: Do one translation at a time or all available?
+    for translation in translations:
+        usfm_data = parse_usfm(os.path.join(SOURCES_DIR, translation['translation']))
+        bible = BibleGenerator(**translation)
+        # TODO: Get language from translation translations.csv
+        bible.generate(usfm_data, 'ENG')
 
 
 if __name__ == "__main__":
