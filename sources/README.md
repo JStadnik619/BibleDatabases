@@ -10,8 +10,15 @@ ORDER BY marker ASC;
 ```
 4. Update downstream queries (eg. for building `fts_verses`) and rendering algorithm if necessary.
 
-# Translation Parsing Errors
+# Translation Notes
+## BSB
+- [bible_databases](https://github.com/JStadnik619/bible_databases) and eBible.org use the 2nd edition of the BSB, whereas the 3rd edition is used here
+## KJV
+- Using [KJV Cambridge Paragraph Bible](https://ebible.org/Scriptures/details.php?id=engkjvcpb)
+  since the [King James (Authorized) Version](https://ebible.org/Scriptures/details.php?id=eng-kjv2006)
+  contains Strong's numbers
 ## LEB
+### Parsing Errors
 - Need to skip front matter (`00 ENG[B]LEB2012.sfm`)
 - Need to convert `/sdo` to `/sd` to parse without crashing
 - The parser doesn't like when multiple `/xt` are in the same row (eg. Matt ln. 15)
