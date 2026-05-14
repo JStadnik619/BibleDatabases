@@ -33,10 +33,10 @@ AND chapter = 134;
 
 SELECT books.name, verse, text, marker, type FROM markup
 JOIN books ON markup.book_id = books.id
-WHERE marker IN ('b', 'm', 'pmo', 'li1', 'q1', 'q2')
-AND books.name = '1 John'
-AND chapter = 2
-AND verse BETWEEN 5 AND 6;
+WHERE marker IN ('b', 'm', 'pmo', 'sc', 'p', 'pc', 'add', 'li1', 'li2', 'q1', 'q2', 'qr')
+AND books.name = 'Matthew'
+AND chapter = 27
+AND verse BETWEEN 37 AND 38;
 
 SELECT verse, text, marker, type FROM markup
 JOIN books ON markup.book_id = books.id
