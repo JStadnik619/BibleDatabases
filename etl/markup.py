@@ -66,11 +66,6 @@ def extract_book_data(usfm):
         format_records(markup)
         data['markup'] = markup
         data['abbreviation'] = markup[1][0]
-
-        # TODO: Omit parsing verses and populate fts_verses table from query against markup?
-        verses = parser.to_list(None, Filter.TEXT, ignore_errors=True)
-        format_records(verses)
-        data['verses'] = verses
     
     return data
 
