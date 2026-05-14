@@ -102,28 +102,6 @@ class BibleGenerator:
         # Insert books
         for book in data['books']:
             cursor.execute("INSERT INTO books (name) VALUES (?);", (book['name'],))
-
-        # TODO: Omit this table and make fts_verses table from query against markup?
-        # Create verses table
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS verses (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            book_id INTEGER,
-            chapter INTEGER,
-            verse INTEGER,
-            text TEXT,
-            FOREIGN KEY (book_id) REFERENCES books(id)
-        );
-        """)
-
-        # Insert verses
-        for book_index, book in enumerate(data['books'], start=1):
-            # Skip column labels ('book', 'chapter', 'verse', 'text', 'type', 'marker')
-            for verse in book['verses'][1:]:
-                cursor.execute("""
-                INSERT INTO verses (book_id, chapter, verse, text)
-                VALUES (?, ?, ?, ?);
-                """, (book_index, verse[1], verse[2], verse[3]))
     
     def create_markup_table(self, data):
         cursor = self.get_bible_cursor()
@@ -159,8 +137,6 @@ class BibleGenerator:
         conn.commit()
         conn.close()
     
-    # TODO: Copy json file from berea
-    # TODO: Book names will need to correspond to a translation's USFM unless standardized
     def create_abbreviations_table(self):
         cursor = self.get_bible_cursor()
 
@@ -269,7 +245,14 @@ class BibleGenerator:
         cursor = conn.cursor()
         cursor.execute("""
         INSERT INTO fts_verses (book_id, chapter, verse, text)
-        SELECT book_id, chapter, verse, text FROM verses;
+        SELECT
+            book_id,
+            chapter,
+            verse,
+        TRIM(GROUP_CONCAT(TRIM(text), ' ')) AS text
+        FROM markup
+        WHERE marker IN ('m', 'pmo', 'p', 'pc', 'sc', 'add', 'li1', 'li2', 'q1', 'q2')
+        GROUP BY book_id, chapter, verse;
         """)
         conn.commit()
         conn.close()
