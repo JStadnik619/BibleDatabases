@@ -67,7 +67,7 @@ def extract_book_data(usfm):
         data['markup'] = markup
         data['abbreviation'] = markup[1][0]
 
-        # TODO: Omit parsing verses and mark fts_verses table from query against markup?
+        # TODO: Omit parsing verses and populate fts_verses table from query against markup?
         verses = parser.to_list(None, Filter.TEXT, ignore_errors=True)
         format_records(verses)
         data['verses'] = verses
@@ -83,8 +83,12 @@ def parse_usfm(path):
         'books': [],
     }
     for sfm_book in sfm_books:
-        book_data = extract_book_data(f"{path}/{sfm_book}")
-        translation_data['books'].append(book_data)
+        try:
+            book_data = extract_book_data(f"{path}/{sfm_book}")
+            translation_data['books'].append(book_data)
+        except Exception as ex:
+            print(f"\nError parsing {path}/{sfm_book}\n")
+            raise ex
 
     return translation_data
 
