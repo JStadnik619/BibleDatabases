@@ -1,7 +1,6 @@
 # TODO
 - [ ] Add Bible translations
   - [ ] LEB
-  - [ ] WEB
 - [ ] Populate FTS table from Markdown query
 - [ ] Describe motivation for this repo 
   - USFM markup to SQLite, FTS, no SWORD Project dependency
