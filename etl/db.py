@@ -6,6 +6,7 @@ import csv
 import os
 import sqlite3
 import json
+import sys
 
 from etl.markup import parse_usfm
 from etl.utils import SOURCES_DIR, DBS_DIR
@@ -20,6 +21,25 @@ def import_resource_books(resource='step_bible'):
             books.append(row['abbreviation'])
     
     return books
+
+
+def import_translations_data(translation=None):
+    """
+    Returns specified translation data if provided, otherwise returns data for
+    all translations.
+    """
+    translations = []
+    
+    with open(f'{SOURCES_DIR}/translations.csv') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            if translation:
+                if row['translation'] == translation:
+                    translations.append(row)
+            else:
+                translations.append(row)
+            
+    return translations
 
 
 class BibleGenerator:
@@ -272,15 +292,18 @@ class BibleGenerator:
         print(f"{self.translation} translation database built successfully!")
 
 
-# TODO: Once this works (including markup), compare db size to berea
-def main():
+def main(args):
     translations = []
-    with open(f'{SOURCES_DIR}/translations.csv') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        for row in csv_reader:
-            translations.append(row)
     
-    # TODO: Do one translation at a time or all available?
+    # Generate all translations by default
+    if len(args) < 1:
+        translations = import_translations_data()
+    elif len(args) == 1:
+        translations = import_translations_data(args[0])
+    else:
+        print("Usage: python -m etl.db <translation>")
+        return
+    
     for translation in translations:
         usfm_data = parse_usfm(os.path.join(SOURCES_DIR, translation['translation']))
         bible = BibleGenerator(**translation)
@@ -289,4 +312,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
