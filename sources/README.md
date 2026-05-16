@@ -1,5 +1,5 @@
 # Procedure For Adding Translations
-1. Add a direct link to the translation's USFM to `translations.csv`.
+1. Add a direct link to the translation's USFM to `translations.csv`
 2. Parse the USFM into SQLite
 3. Determine text markers used by translation, eg.
 ```sql
@@ -8,7 +8,13 @@ WHERE type IN ('para', 'char')
 AND verse != ''
 ORDER BY marker ASC;
 ```
-4. Update downstream queries (eg. for building `fts_verses`) and rendering algorithm if necessary.
+4. Update downstream queries (eg. for building `fts_verses`) and rendering algorithm if necessary
+5. Compare verse contents against [scrollmapper databases](https://github.com/JStadnik619/bible_databases)
+  - Export a table to a file:
+```
+sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses;" > "bsb_fts_verses_new.txt"
+```
+  - Diff the two files
 
 # Translation Notes
 ## BSB
