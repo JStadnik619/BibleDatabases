@@ -13,6 +13,11 @@ ORDER BY marker ASC;
 # Translation Notes
 ## BSB
 - [bible_databases](https://github.com/JStadnik619/bible_databases) and eBible.org use the 2nd edition of the BSB, whereas the 3rd edition is used here
+### Parsing Errors
+- There's an empty `\d` at Zechariah 12:1, which should be `\m` instead
+```
+[('At Point(row=541, column=0)', '\\d\n\\v 1 This is the burden of the word of the LORD concerning Israel.'), ('At Point(row=542, column=65)', '.')]
+```
 ## KJV
 - Using [KJV Cambridge Paragraph Bible](https://ebible.org/Scriptures/details.php?id=engkjvcpb)
   since the [King James (Authorized) Version](https://ebible.org/Scriptures/details.php?id=eng-kjv2006)
