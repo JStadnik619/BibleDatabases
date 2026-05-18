@@ -44,5 +44,7 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
 - `\m1` tags must be converted to `\m`
 - `\p1` tags must be converted to `\p`
 - Footnotes (`\ft`) will duplicate `\add` content when describing translator's methodology 
-  - Resolved by performing a find (`(\\ft\s+﻿\*Here “)\\add\s+([^\\]+?)\\add\*`) and replace (`$1$2`)
+  - Resolved by performing the following find and replaces:
+    - find: `(\\ft\s+﻿\*Here “)\\add\s+([^\\]+?)\\add\*` replace: `$1$2`
+    - find: `(\\ft\s+\*Here “)\\add\s+([^\\]+?)\\add\*”` replace: `$1$2”`
 - Update `\h Psalm` to `\h Psalms` to enable its abbreviations
