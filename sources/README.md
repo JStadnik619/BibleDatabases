@@ -43,8 +43,6 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
     reference rending
 - `\m1` tags must be converted to `\m`
 - `\p1` tags must be converted to `\p`
-<!-- TODO: SQL query to exclude \add if enclosed by \ft -->
-- Footnotes (`\ft`) will duplicate `\add` content when describing translator's methodology (unresolved)
-  - Acts 15:25
-  - John 19:13
+- Footnotes (`\ft`) will duplicate `\add` content when describing translator's methodology 
+  - Resolved by performing a find (`(\\ft\s+﻿\*Here “)\\add\s+([^\\]+?)\\add\*`) and replace (`$1$2`)
 - Update `\h Psalm` to `\h Psalms` to enable its abbreviations
