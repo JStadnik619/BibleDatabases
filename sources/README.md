@@ -29,6 +29,11 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
   since the [King James (Authorized) Version](https://ebible.org/Scriptures/details.php?id=eng-kjv2006)
   contains Strong's numbers
 ## LEB
+- The LEB's USFM does not contain blank lines
+<!-- TODO -->
+  - Blank line data is provided in the [plain text release](https://web.archive.org/web/20181005033818/http://lexhamenglishbible.com/download/LEB.txt)
+  - Blank lines could be parsed from the plain text file and inserted into the
+    USFM file
 ### Parsing Errors
 - Need to skip front matter (`00 ENG[B]LEB2012.sfm`)
 - Need to convert `\sd0` to `\sd` to parse without raising exceptions
