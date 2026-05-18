@@ -252,6 +252,7 @@ class BibleGenerator:
         TRIM(GROUP_CONCAT(TRIM(text), ' ')) AS text
         FROM markup
         WHERE marker IN ('m', 'pmo', 'p', 'pc', 'sc', 'add', 'li1', 'li2', 'q1', 'q2', 'qr')
+        AND verse != ''
         GROUP BY book_id, chapter, verse;
         """)
         conn.commit()
