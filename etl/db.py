@@ -251,7 +251,21 @@ class BibleGenerator:
             verse,
         TRIM(GROUP_CONCAT(TRIM(text), ' ')) AS text
         FROM markup
-        WHERE marker IN ('m', 'pmo', 'p', 'pc', 'sc', 'add', 'li1', 'li2', 'q1', 'q2', 'qr')
+        WHERE marker IN (
+            'm',
+            'pmo',
+            'p',
+            'pc',
+            'sc',
+            'add',
+            'tl',
+            'li1',
+            'li2',
+            'q1',
+            'q2',
+            'q3',
+            'qr'
+        )
         AND verse != ''
         GROUP BY book_id, chapter, verse;
         """)
