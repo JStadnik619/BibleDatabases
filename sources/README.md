@@ -31,5 +31,8 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
 ## LEB
 ### Parsing Errors
 - Need to skip front matter (`00 ENG[B]LEB2012.sfm`)
-- Need to convert `/sdo` to `/sd` to parse without crashing
-- The parser doesn't like when multiple `/xt` are in the same row (eg. Matt ln. 15)
+- Need to convert `\sd0` to `\sd` to parse without raising exceptions
+- `\qs` and `\qs*` raise exceptions 
+- `\xt` are not closed with `\xt*`
+  - This is unresolved, but probably inconsequential until implementing cross 
+    reference rending

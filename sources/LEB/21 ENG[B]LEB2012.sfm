@@ -11,13 +11,13 @@
 \m 
 \v 1 The words of the Teacher,\f + \fr 1:1 \ft Hebrew “Qohelet” \f* the son of David, king in Jerusalem.
 \s1 Motto Introduced
-\sd0
+\sd
 \q1 
 \v 2 “Vanity of vanities!” says the Teacher,\f + \fr 1:2 \ft Hebrew “Qohelet” \f*
 \q2 “Vanity of vanities! All \add is\add* vanity!”
-\sd0
+\sd
 \s1 All Toil is Profitless and Repetitious
-\sd0
+\sd
 \q1 
 \v 3 What does a person gain in all his toil
 \q2 with which he toils under the sun?
@@ -50,25 +50,25 @@
 \q1 
 \v 11 There is neither remembrance of former generations,
 \q2 nor will there be remembrance of future generations.
-\sd0
+\sd
 \s1 Qohelet Introduces His Quest
 \m 
 \v 12 I, the Teacher,\f + \fr 1:12 \ft Hebrew “Qohelet” \f* \add was\add* king over Israel in Jerusalem. 
 \v 13 I applied my mind to seek and to search by wisdom all that is done under the heavens.\f + \fr 1:13 \ft MT reads “under the heavens,” which is supported by LXX; however, several versions (Syriac Peshitta, Aramaic Targum, Latin Vulgate) as well as the Cairo Geniza manuscript read, “under the sun,” cf. 1:3, 9, etc. \f* It \add is\add* a grievous task God has given to ⸤humans⸥.\f + \fr 1:13 \ft Literally “the sons of the man” \f* 
 \v 14 I saw all the works that are done under the sun. Look! Everything \add is\add* vanity and chasing wind.
-\sd0
+\sd
 \q1 
 \v 15 What is twisted cannot be straightened,\f + \fr 1:15 \ft The MT reads the active “to be straight”; however, the BHS editors suggest the passive “to be straightened,” which is supported by LXX, which reflects a passive form \f*
 \q2 and what is lacking cannot be counted.\f + \fr 1:15 \ft The MT reads “to be numbered”; however, the BHS editors suggest “to be supplied,” comparing 1:15b with similar wording in the Babylonian Talmud: “May the Almighty replenish your loss” (\fqa b. Berachot \ft 16b) \f*
-\sd0
+\sd
 \p 
 \v 16 ⸤I said to myself⸥,\f + \fr 1:16 \ft Literally “I myself said to my heart” \f* “Look! I have become great and have increased \add in\add* wisdom more than anyone who ⸤has preceded⸥\f + \fr 1:16 \ft Literally “before me” \f* me over Jerusalem. ⸤I have acquired a great deal of wisdom and knowledge⸥.”\f + \fr 1:16 \ft Literally “And my mind has seen much wisdom and knowledge” \f* 
 \v 17 So ⸤I dedicated myself⸥\f + \fr 1:17 \ft Literally “\xt So I \ft gave my heart” \f* to learn about wisdom and \add to\add* learn about delusion and folly. However, I discovered\f + \fr 1:17 \ft Or “I knew” \f* that this also \add is\add* chasing wind.
-\sd0
+\sd
 \q1 
 \v 18 For in much wisdom \add is\add* much frustration,\f + \fr 1:18 \ft Or “vexation” \f*
 \q2 and whoever increases knowledge increases sorrow.
-\sd0
+\sd
 \c 2
 \s1 Qohelet’s Investigation of Self-Indulgence
 \m 
@@ -112,7 +112,7 @@
 \s1 God Has Ordained the Ebb and Flow of Human Activities
 \m 
 \v 1 For everything there \add is\add* an appointed time, a time for every matter under heaven:
-\sd0
+\sd
 \q1 
 \v 2 a time to bear\f + \fr 3:2 \ft Or “a time to be born”; MT reads the active form “to bear \fq children \ft ” \f* and a time to die;
 \q2 a time to plant and a time to root up \add what is\add* planted;
@@ -134,7 +134,7 @@
 \q1 
 \v 8 a time to love and a time to hate;
 \q2 a time \add for\add* war and a time \add for\add* peace.
-\sd0
+\sd
 \p 
 \v 9 What does the worker gain in his toil?
 \s1 No One Understands God’s Mysterious Plan
@@ -143,7 +143,7 @@
 \v 11 He has made everything suitable in its time. He also has put ⸤the past⸥\f + \fr 3:11 \ft Literally “eternity” \f* in their hearts, yet no one can grasp what God does from the beginning to the end. 
 \v 12 So I realized that there is ⸤nothing better⸥\f + \fr 3:12 \ft Literally “no good” \f* for them than to ⸤rejoice and enjoy themselves⸥\f + \fr 3:12 \ft Literally “to rejoice and to do good” \f* during their lives. 
 \v 13 And for anyone to eat and drink, that is, ⸤to enjoy the fruit of all his toil⸥,\f + \fr 3:13 \ft Literally “to see good in all his toil” \f* this also is a gift of God.
-\sd0
+\sd
 \q1 
 \v 14 I know everything God does endures forever;
 \q2 nothing can be added to it, and nothing can be taken from it,
@@ -152,7 +152,7 @@
 \v 15 What is—it already was,
 \q2 and what will be—it already is,
 \q3 for ⸤God will do what he has done.⸥\f + \fr 3:15 \ft Literally “God seeks \fq what \ft is pursued” \f*
-\sd0
+\sd
 \s1 God’s Mysterious Plan Allows Injustice to Exist in the World
 \m 
 \v 16 I saw something else under the sun: instead of justice \add there was\add* evil; instead of righteousness \add there was\add* wickedness. 
@@ -168,7 +168,7 @@
 \s1 The Existence of Oppression in the World Makes Human Existence Miserable
 \m 
 \v 1 I looked again, and I saw all the oppression that occurs under the sun.
-\sd0
+\sd
 \q1 ⸤I saw the tears of the oppressed—
 \q2 no one comforts them!
 \q1 Those who oppress them are powerful—
@@ -179,18 +179,18 @@
 \q1 
 \v 3 But better \add off\add* than both of them is the one who has not yet been born
 \q2 and has not seen the evil deeds that are done under the sun.
-\sd0
+\sd
 \s1 People Need Balance in Their Approach to Labor
 \m 
 \v 4 I also realized that all \add of the\add* toil and all \add of\add* the skillful work that is done—it \add is\add* envy between one man and ⸤another⸥.\f + \fr 4:4 \ft Literally “his friend” \f* This also \add is\add* vanity and chasing wind!
-\sd0
+\sd
 \q1 
 \v 5 ⸤The fool refuses to work with his hands,
 \q2 so he has nothing to eat except his own skin⸥!\f + \fr 4:5 \ft Literally “The fool folds his hands and eats his flesh” \f*
 \q1 
 \v 6 Better \add is\add* one handful with peace
 \q2 than two fists full with toil and chasing wind.
-\sd0
+\sd
 \s1 Wealth without Someone with Which to Enjoy It is Futile
 \m 
 \v 7 I turned again and saw another vanity under the sun. 
@@ -209,7 +209,7 @@
 \v 16 There is no end to all the people, to all who were before him. Yet the later generation will not rejoice in him, for this also \add is\add* vanity and chasing wind!
 \c 5
 \s1 Listen to God Rather Than Uttering Rash Vows
-\sd0
+\sd
 \q1 
 \v 1 \f + \fr 5:1 \ft \xt Ecclesiastes 5:1–20 \ft in the English Bible is 4:17–5:19 in the Hebrew Bible \f* Guard your steps when you go to the house of God;
 \q2 draw near to listen \add rather\add* than to offer a sacrifice of fools,
@@ -238,9 +238,9 @@
 \q1 
 \v 7 For with many dreams \add come\add* vanities and numerous words.
 \q2 Therefore, fear God!
-\sd0
+\sd
 \s1 Powerful Bureaucrats Exploit the Helpless Poor
-\sd0
+\sd
 \q1 
 \v 8 Do not be surprised if you see the poor being oppressed with violence
 \q2 or \add do not see\add* justice and righteousness in the province.
@@ -249,9 +249,9 @@
 \q1 
 \v 9 The produce of the land is exploited by everyone;
 \q2 ⸤even the king profits from the field \add of the poor\add*⸥!\f + \fr 5:9 \ft Literally “for the field is even worked for the king” \f*
-\sd0
+\sd
 \s1 There is Never Enough Money to Satisfy
-\sd0
+\sd
 \q1 
 \v 10 Whoever loves money is not satisfied \add with\add* money,
 \q2 and whoever loves wealth \add is\add* not \add satisfied with\add* profit.
@@ -264,7 +264,7 @@
 \q1 
 \v 12 The sleep of the laborer \add is\add* pleasant, whether he eats little or much,
 \q2 but the wealth of the rich man does not allow him to rest.
-\sd0
+\sd
 \s1 Hoarding Wealth Can Backfire
 \m 
 \v 13 There is a grievous evil which I have seen under the sun: wealth ⸤hoarded⸥\f + \fr 5:13 \ft Literally “kept ” \f* by its owner to his harm. 
@@ -288,7 +288,7 @@
 \v 5 He has neither seen nor known the sun, yet he has more rest than him. 
 \v 6 Even if a man\f + \fr 6:6 \ft Hebrew “he” \f* lives a thousand years twice, if he\f + \fr 6:6 \ft Hebrew “and” \f* does not enjoy ⸤prosperity⸥,\f + \fr 6:6 \ft Literally “good” \f* ⸤both suffer the same fate⸥!\f + \fr 6:6 \ft Literally “are not the all going to the same place?” \f*
 \s1 One Must Learn to Be Content with What One Has
-\sd0
+\sd
 \q1 
 \v 7 All of a man’s toil \add is\add* for his mouth—
 \q2 yet his appetite is never satisfied.
@@ -299,9 +299,9 @@
 \v 9 ⸤Better to be content with what your eyes see
 \q2 than for your soul to constantly crave more⸥.\f + \fr 6:9 \ft Literally “Sight of the eyes \fq is \ft better than wandering of desire” \f*
 \q1 This also \add is\add* vanity and chasing wind!
-\sd0
+\sd
 \s1 It is Futile for Humans to Complain about God’s Irresistible Will
-\sd0
+\sd
 \q1 
 \v 10 Whatever is—it was already determined,
 \q2 ⸤what will be—it has already been decided⸥.\f + \fr 6:10 \ft Literally “and his name is known what he \fq is \ft man” \f*
@@ -310,13 +310,13 @@
 \q1 
 \v 11 ⸤Increasing words only multiplies futility⸥,\f + \fr 6:11 \ft Literally “\fq Where \ft there \fq are \ft numerous words, \fq it \ft makes numerous vanity” \f*
 \q2 how does that profit anyone?
-\sd0
+\sd
 \s1 The Future is Inscrutable to Humans
 \m 
 \v 12 For who knows what \add is\add* good for a man in his life during the few days of his fleeting life, which are fleeting as a shadow? For who can tell anyone what will happen ⸤in the future⸥\f + \fr 6:12 \ft Literally “after him” \f* under the sun?
 \c 7
 \s1 People Generally Do Not Know What is Best for Them
-\sd0
+\sd
 \q1 
 \v 1 A good name \add is\add* better than precious ointment,
 \q2 and the day of death \add is better\add* than the day of one’s birth.
@@ -338,9 +338,9 @@
 \v 6 Like the sound of thorns under a pot,
 \q2 so also the laughter of fools.
 \q1 This also \add is\add* vanity!
-\sd0
+\sd
 \s1 Wisdom—Although Vulnerable—is Beneficial
-\sd0
+\sd
 \q1 
 \v 7 Surely oppression makes a fool of the wise,
 \q2 and a bribe corrupts the heart.
@@ -359,9 +359,9 @@
 \q1 
 \v 12 ⸤For wisdom offers protection like money offers protection⸥.\f + \fr 7:12 \ft Literally “For in the shade of wisdom \fq is \ft the shade of money” \f*
 \q2 But knowledge \add has\add* an advantage—wisdom restores life to its possessor.
-\sd0
+\sd
 \s1 Humans Must Accept God’s Will and Make the Best of It
-\sd0
+\sd
 \q1 
 \v 13 Consider the work of God.
 \q2 For who is able to make straight what he made crooked?
@@ -370,9 +370,9 @@
 \q2 But in the day of adversity, consider!
 \q1 For God made one in place of another
 \q2 so that mortals cannot find out what will happen ⸤in the future⸥.\f + \fr 7:14 \ft Literally “after him” \f*
-\sd0
+\sd
 \s1 The Law of Retribution Does Not Always Work—but It Does Sometimes
-\sd0
+\sd
 \q1 
 \v 15 I have seen all these things in my vain life:
 \q2 Sometimes a righteous man perishes in \add spite of\add* his righteousness,
@@ -386,9 +386,9 @@
 \q1 
 \v 18 \add It is\add* good to take hold of the one and also must not let go of the other;
 \q2 for whoever fears God will hold both of them secure.
-\sd0
+\sd
 \s1 Wisdom is Valuable, but No One is Completely Righteous
-\sd0
+\sd
 \q1 
 \v 19 Wisdom gives more strength to the wise
 \q2 than ten rulers who are in the city.
@@ -401,7 +401,7 @@
 \q1 
 \v 22 For your heart knows
 \q2 that you also have cursed others many times.
-\sd0
+\sd
 \s1 Absolute Wisdom is Unattainable
 \m 
 \v 23 All this I have tested with wisdom. I said, “I will be wise!” but ⸤it was beyond my grasp⸥.\f + \fr 7:23 \ft Literally “it \fq was \ft far from me” \f* 
@@ -414,7 +414,7 @@
 \v 29 Look! This alone I found: God made mankind upright, but they have devised many schemes.”
 \c 8
 \s1 Wisdom is Valuable
-\sd0
+\sd
 \q1 
 \v 1 Who \add is\add* like the sage?
 \q2 Who knows \add the\add* interpretation of a thing?
@@ -436,9 +436,9 @@
 \q1 
 \v 6 For there is a \add proper\add* time and right \add procedure\add* for every matter,
 \q2 even though the trouble of man \add weighs\add* heavy upon him.
-\sd0
+\sd
 \s1 No One Knows the Future
-\sd0
+\sd
 \q1 
 \v 7 Surely no one knows what will be,
 \q2 so who can tell anyone what will happen?
@@ -447,7 +447,7 @@
 \q2 so also no one can control the day of his death.
 \q1 Just as no one is discharged in time of war,
 \q2 so wickedness will not deliver the wicked.
-\sd0
+\sd
 \s1 The World Marred by Oppression and Injustice
 \m 
 \v 9 I saw all this as I applied my heart to all the deeds done under the sun: ⸤sometimes those in authority harm others⸥.\f + \fr 8:9 \ft Literally “sometimes one man domineers another man to his harm” \f* 
@@ -470,7 +470,7 @@
 \m 
 \v 1 So all this I laid to my heart, and I concluded\f + \fr 9:1 \ft Or “examined” \f* that the righteous and the wise, as well as their deeds, \add are\add* in the hand of God. So no one knows anything that will \add come\add* to them, whether \add it will be\add* love or hatred. 
 \v 2 The same fate \add comes\add* to everyone:
-\sd0
+\sd
 \q1 to the righteous and to the wicked,
 \q2 to the good and to the wicked,\f + \fr 9:2 \ft Several versions (Greek, Syriac, Latin) insert “and to the bad” \f*
 \q1 to the clean and to the unclean,
@@ -482,7 +482,7 @@
 \q2 the same fate \add comes\add* to everyone.
 \q1 Also the hearts of ⸤humans⸥\f + \fr 9:3 \ft Literally “the sons of the man” \f* are full \add of\add* evil;
 \q2 delusion \add is\add* in their hearts during their lives, and then they die.
-\sd0
+\sd
 \s1 Death Deprives Humans of Everything in Life
 \m 
 \v 4 Whoever is joined\f + \fr 9:4 \ft The \fqa Kethib \ft reads “chosen,” but the \fqa Qere \ft as well as all the versions and numerous medieval Hebrew manuscripts read “joined” \f* to all the living has hope. After all, even a live dog is better than a dead lion! 
@@ -505,16 +505,16 @@
 \v 15 Now, a poor wise man was found in it, and he delivered the city by his wisdom. 
 \v 16 So I concluded that wisdom \add is\add* better than might, yet the wisdom of the poor is despised, and his words are not heard.
 \s1 Wisdom—Although Vulnerable—is Superior to Folly
-\sd0
+\sd
 \q1 
 \v 17 The words of the wise are heard in peace
 \q2 \add more\add* than the shouting of a ruler \add is heard\add* among the fools.
 \q1 
 \v 18 Wisdom \add is\add* better than weapons of war,
 \q2 but one sinner destroys much good.
-\sd0
+\sd
 \c 10
-\sd0
+\sd
 \q1 
 \v 1  Dead flies cause a bad smell \add and\add* ruin\f + \fr 10:1 \ft Or “spew” \f* the ointment of the perfumer.
 \q2 So also a little folly outweighs wisdom and honor.
@@ -537,18 +537,18 @@
 \q1 
 \v 7 I have even seen slaves \add riding\add* on horses
 \q2 and princes walking like slaves on the earth!
-\sd0
+\sd
 \s1 Accidents Happen—Even to Professionals
-\sd0
+\sd
 \q1 
 \v 8 Whoever digs a pit will fall into it.
 \q2 Whoever breaks through a wall, a snake will bite him.
 \q1 
 \v 9 Whoever ⸤quarries⸥\f + \fr 10:9 \ft Literally “breaks out” \f* stones will be wounded by them.
 \q2 Whoever splits logs will be endangered by them.
-\sd0
+\sd
 \s1 Hard Work and Skill Alone Cannot Succeed—Wisdom is Necessary
-\sd0
+\sd
 \q1 
 \v 10 If the ax is blunt but one does not sharpen its edge,
 \q2 ⸤he must exert more effort⸥,\f + \fr 10:10 \ft Literally “he must be more strength” \f*
@@ -556,9 +556,9 @@
 \q1 
 \v 11 If the snake bites before the charming,
 \q2 ⸤the snake charmer will not succeed⸥.\f + \fr 10:11 \ft Literally “there is no advantage to the owner of the charm” \f*
-\sd0
+\sd
 \s1 The Consequences of Foolishness
-\sd0
+\sd
 \q1 
 \v 12 The wise man \add wins\add* favor by the words of his mouth,
 \q2 but the fool is devoured by his own lips.
@@ -591,10 +591,10 @@
 \q2 and do not curse the rich even in your own bedroom,
 \q1 for a bird of the sky may carry your voice;
 \q2 a winged messenger may repeat your words.
-\sd0
+\sd
 \c 11
 \s1 Living in the Light of the Limits of Human Knowledge
-\sd0
+\sd
 \q1 
 \v 1 Send out your bread on the water,
 \q2 for in many days you will find it.
@@ -618,9 +618,9 @@
 \q2 and do not let your hands rest in the evening,
 \q1 for you do not know what will prosper—
 \q2 whether this or that, or whether both of them alike will succeed.
-\sd0
+\sd
 \s1 Enjoy Life to the Fullest within the Auspices of the Fear of God
-\sd0
+\sd
 \q1 
 \v 7 The light is sweet,
 \q2 and it \add is\add* pleasant for the eyes to see the sun.
@@ -638,10 +638,10 @@
 \v 10 Banish anxiety from your heart,
 \q2 and put away pain from your body,
 \q1 for youth and vigor \add are\add* vanity.
-\sd0
+\sd
 \c 12
 \s1 Advice to the Young: Life is Short and Then You Die
-\sd0
+\sd
 \q1 
 \v 1 Remember your Creator in the days of your youth—
 \q2 before the days of trouble come
@@ -675,13 +675,13 @@
 \q1 
 \v 7 And the dust returns to the earth as it was,
 \q2 and the breath returns to God who gave it.
-\sd0
+\sd
 \s1 Motto Restated
-\sd0
+\sd
 \q1 
 \v 8 “Vanity of vanity!” says the Teacher.\f + \fr 12:8 \ft Hebrew “Qohelet” \f*
 \q2 “Everything \add is\add* vanity!”
-\sd0
+\sd
 \s1 Epilogue
 \m 
 \v 9 The Teacher\f + \fr 12:9 \ft Hebrew “Qohelet” \f* was full of wisdom, and he taught the people with knowledge. He carefully considered many proverbs and carefully arranged them. 
@@ -689,7 +689,7 @@
 \p 
 \v 11 The words of the wise \add are\add* like cattle goads; the collections of the sages \add are\add* like pricks inflicted by one shepherd.\f + \fr 12:11 \ft Or “The owner of collections are given by one shepherd” \f* 
 \v 12 My son, be careful ⸤about anything beyond these things⸥.\f + \fr 12:12 \ft Literally “but from more than them” \f* For the writing of books is endless, and too much study ⸤is wearisome⸥.\f + \fr 12:12 \ft Literally “increases weariness of flesh” \f*
-\sd0
+\sd
 \q1 
 \v 13 Now that all has been heard, here is the final conclusion:
 \q2 Fear God and obey his commandments,
@@ -697,4 +697,4 @@
 \q1 
 \v 14 For God will bring every deed into judgment,
 \q2 including every secret thing, whether good or evil.
-\sd0
+\sd

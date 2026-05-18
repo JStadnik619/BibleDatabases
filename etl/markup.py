@@ -6,9 +6,8 @@ Based on https://github.com/Bridgeconn/usfm-grammar/tree/master/py-usfm-parser
 # TODO: Rename this module
 
 import os
-import csv
 
-from usfm_grammar import USFMParser, Filter
+from usfm_grammar import USFMParser
 
 
 def format_records(records):
