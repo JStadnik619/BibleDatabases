@@ -9,6 +9,7 @@ AND verse != ''
 ORDER BY marker ASC;
 ```
 4. Update downstream queries (eg. for building `fts_verses`) and rendering algorithm if necessary
+<!-- TODO: Compile sqldiff with FTS5 enabled to sqldiff fts_verses -->
 5. Compare verse contents against [scrollmapper databases](https://github.com/JStadnik619/bible_databases)
   - Export a table to a file:
 ```
@@ -21,14 +22,13 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
 - [bible_databases](https://github.com/JStadnik619/bible_databases) and eBible.org use the 2nd edition of the BSB, whereas the 3rd edition is used here
 ### Parsing Errors
 - There's an empty `\d` at Zechariah 12:1, which should be `\m` instead
-```
-[('At Point(row=541, column=0)', '\\d\n\\v 1 This is the burden of the word of the LORD concerning Israel.'), ('At Point(row=542, column=65)', '.')]
-```
 ## KJV
 - Using [KJV Cambridge Paragraph Bible](https://ebible.org/Scriptures/details.php?id=engkjvcpb)
   since the [King James (Authorized) Version](https://ebible.org/Scriptures/details.php?id=eng-kjv2006)
   contains Strong's numbers
 ## LEB
+<!-- TODO -->
+- Contains `\tl` tags (John 19:13)
 - The LEB's USFM does not contain blank lines
 <!-- TODO -->
   - Blank line data is provided in the [plain text release](https://web.archive.org/web/20181005033818/http://lexhamenglishbible.com/download/LEB.txt)
@@ -41,3 +41,10 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
 - `\xt` are not closed with `\xt*`
   - This is unresolved, but probably inconsequential until implementing cross 
     reference rending
+- `\m1` tags must be converted to `\m`
+- `\p1` tags must be converted to `\p`
+<!-- TODO: SQL query to exclude \add if enclosed by \ft -->
+- Footnotes (`\ft`) will duplicate `\add` content when describing translator's methodology (unresolved)
+  - Acts 15:25
+  - John 19:13
+- Update `\h Psalm` to `\h Psalms` to enable its abbreviations

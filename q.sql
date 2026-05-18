@@ -33,17 +33,47 @@ AND chapter = 134;
 
 SELECT books.name, verse, text, marker, type FROM markup
 JOIN books ON markup.book_id = books.id
-WHERE marker IN ('b', 'm', 'pmo', 'sc', 'p', 'pc', 'add', 'li1', 'li2', 'q1', 'q2', 'qr')
+WHERE marker IN (
+    'b',
+    'm',
+    'pmo',
+    'p',
+    'pc',
+    'sc',
+    'add',
+    'tl',
+    'li1',
+    'li2',
+    'q1',
+    'q2',
+    'q3',
+    'qr'
+)
 AND books.name = 'Matthew'
 AND chapter = 27
 AND verse BETWEEN 37 AND 38;
 
-SELECT verse, text, marker, type FROM markup
+SELECT books.name, verse, text, marker, type FROM markup
 JOIN books ON markup.book_id = books.id
-WHERE marker IN ('b', 'm', 'pmo', 'li1', 'q1', 'q2')
-AND books.name = 'Genesis'
-AND chapter = 1
-AND verse = 31;
+WHERE marker IN (
+    'b',
+    'm',
+    'pmo',
+    'p',
+    'pc',
+    'sc',
+    'add',
+    'tl',
+    'li1',
+    'li2',
+    'q1',
+    'q2',
+    'q3',
+    'qr'
+)
+AND books.name = 'John'
+AND chapter = 19
+AND verse = 13;
 
 -- SELECT verses from markup table
 SELECT
