@@ -1,7 +1,4 @@
 # TODO
-- [ ] Add Bible translations
-<!-- TODO: Try to fix LEB parse errors -->
-  - [ ] LEB 
 - [ ] Describe motivation for this repo 
   - USFM markup to SQLite, FTS, no SWORD Project dependency
 - [ ] Describe available translations in README
