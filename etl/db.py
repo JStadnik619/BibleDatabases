@@ -1,7 +1,3 @@
-"""Schema and functions based on
-https://github.com/JStadnik619/bible_databases/blob/master/scripts/export_sqlite_database.py
-"""
-
 import csv
 import os
 import sqlite3
@@ -231,9 +227,6 @@ class BibleGenerator:
         conn.commit()
         conn.close()
     
-    # TODO: Create fts_verses from markup
-    # 1. Create the FTS5 table
-    # 2. Populate it from a SELECT verses query on markup
     def create_fts_verses_table(self):
         cursor = self.get_bible_cursor()
         cursor.execute("""

@@ -32,11 +32,6 @@ def format_records(records):
             records[idx][3] = record[3].rstrip()
 
 
-# BUG: BSB/38ZECBSB.SFM
-# Exception: Errors present:
-#         At Point(row=541, column=0):\d
-# \v 1 This is the burden of the word of the LORD concerning Israel.
-#         At Point(row=542, column=65):.
 def extract_book_data(usfm):
     """Extract translation, book, markup, and verses from USFM file.
 
@@ -69,7 +64,6 @@ def extract_book_data(usfm):
     return data
 
 
-# TODO: Commit verses and markup to db for each book?
 def parse_usfm(path):
     sfm_books = sorted([f for f in os.listdir(path) if f.lower().endswith('sfm')])
     translation_data = {
