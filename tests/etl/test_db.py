@@ -9,7 +9,7 @@ def test_create_markup_table():
             {
                 'name': 'Genesis',
                 'markup': [
-                    ['book', 'chapter', 'verse', 'text', 'type', 'marker']
+                    ['book', 'chapter', 'verse', 'text', 'type', 'marker'],
                     ["GEN", 2, 10, "", "verse", "v"],
                     ["GEN", 2, 10, "Now a river flowed out of Eden to water the garden, and from there it branched into four headwaters:\n", "para", "m"],
                     ["GEN", 2, 10, "", "para", "b"],
@@ -39,7 +39,12 @@ def test_create_markup_table():
         ]
     }
     
-    bible = BibleGenerator('BSB-test')
+    bible = BibleGenerator(
+        'BSB-test',
+        'Berean Standard Bible (test)',
+        'Creative Commons CCO',
+        'https://bereanbible.com/bsb_usfm.zip'
+    )
     bible.create_markup_table(data)
     # TODO: Assert that markup is actually contained in the db
     # TODO: Assert that the column labels are NOT inserted as a row
