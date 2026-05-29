@@ -47,3 +47,6 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
     - find: `(\\ft\s+﻿\*Here “)\\add\s+([^\\]+?)\\add\*` replace: `$1$2`
     - find: `(\\ft\s+\*Here “)\\add\s+([^\\]+?)\\add\*”` replace: `$1$2”`
 - Update `\h Psalm` to `\h Psalms` to enable its abbreviations
+
+<!-- TODO: Add script to download source USFMs from translations.csv -->
+<!-- Base on [this ebible script](https://github.com/BibleNLP/ebible/blob/main/code/python/ebible.py) -->
