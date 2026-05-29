@@ -1,4 +1,3 @@
-<!-- TODO: Rename repo to BibleDatabases -->
 # Bible Translations with Formatting, Cross References, and FTS
 This is a collection of SQLite databases containing the markup records from
 each translation's [USFM](https://paratext.org/usfm/) file. Records include 
@@ -69,6 +68,6 @@ This table contains information about the available Bible translations.
 
 # Related Projects
 - [berea](https://github.com/JStadnik619/berea):
-  Python client and command-line tool for referencing and searching passages
+  Python client and command-line tool for referencing and searching Bible passages
 - [berea-web](https://github.com/JStadnik619/berea-web):
   Flask web app for full-text searching Scripture
