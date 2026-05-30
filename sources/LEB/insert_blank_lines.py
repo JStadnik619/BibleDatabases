@@ -2,7 +2,6 @@ import re
 from collections import defaultdict
 
 # Sets don't maintain order of verses but provide O(1) lookups
-# TODO: Omit last break of the chapter
 def parse_paragraph_breaks(text: str) -> dict[str, dict[int, set[int]]]:
     result = defaultdict(lambda: defaultdict(set))
 
@@ -15,13 +14,47 @@ def parse_paragraph_breaks(text: str) -> dict[str, dict[int, set[int]]]:
 
     lines = text.splitlines()
 
+    def find_next_reference(start_index: int):
+        """
+        Finds the next verse reference AND its book/chapter context.
+        Used to determine if a blank-line break is valid.
+        """
+        next_book = current_book
+        next_chapter = None
+
+        k = start_index + 1
+
+        while k < len(lines):
+            line = lines[k].strip()
+
+            # Detect book heading
+            if divider_pattern.match(line):
+                j = k + 1
+                while j < len(lines) and not lines[j].strip():
+                    j += 1
+
+                if (
+                    j < len(lines)
+                    and j + 1 < len(lines)
+                    and divider_pattern.match(lines[j + 1].strip())
+                ):
+                    next_book = lines[j].strip().title()
+                    k = j + 1
+                    continue
+
+            match = verse_pattern.match(lines[k])
+            if match:
+                next_chapter = int(match.group(1))
+                break
+
+            k += 1
+
+        return next_book, next_chapter
+
     for i, line in enumerate(lines):
         stripped = line.strip()
 
-        # Detect book headings:
-        # ----------
-        # 2 PETER
-        # ----------
+        # Detect book headings
         if divider_pattern.match(stripped):
             j = i + 1
             while j < len(lines) and not lines[j].strip():
@@ -29,21 +62,28 @@ def parse_paragraph_breaks(text: str) -> dict[str, dict[int, set[int]]]:
 
             if (
                 j < len(lines)
-                and lines[j].strip()
                 and j + 1 < len(lines)
                 and divider_pattern.match(lines[j + 1].strip())
             ):
                 current_book = lines[j].strip().title()
-                continue
+            continue
 
-        # Blank line => previous verse ended a paragraph
+        # Blank line => potential paragraph break
         if not stripped:
             if (
                 current_book is not None
                 and current_chapter is not None
                 and current_verse is not None
             ):
-                result[current_book][current_chapter].add(current_verse)
+                next_book, next_chapter = find_next_reference(i)
+
+                # Only keep break if still same book + chapter
+                if (
+                    next_book == current_book
+                    and next_chapter == current_chapter
+                ):
+                    result[current_book][current_chapter].add(current_verse)
+
             continue
 
         # Verse line
