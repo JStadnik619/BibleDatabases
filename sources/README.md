@@ -27,6 +27,8 @@ sqlite3 -header databases/BSB.db "SELECT book_id, chapter, verse FROM fts_verses
 - Using [KJV Cambridge Paragraph Bible](https://ebible.org/Scriptures/details.php?id=engkjvcpb)
   since the [King James (Authorized) Version](https://ebible.org/Scriptures/details.php?id=eng-kjv2006)
   contains Strong's numbers
+  <!-- TODO -->
+  - This edition does not have paragraph breaks
 ## LEB
 - The LEB's USFM does not contain blank lines, so paragraph breaks are parsed
   from the [plain text release](https://web.archive.org/web/20181005033818/http://lexhamenglishbible.com/download/LEB.txt)
